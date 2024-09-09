@@ -6,6 +6,34 @@ const routes = [
       { path: '', component: () => import('pages/IndexPage.vue') },
     ],
   },
+  {
+    path: '/tutor',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/tutor/TutorList.vue') },
+    ],
+  },
+  {
+    path: '/tutor/novo',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/tutor/TutorForm.vue') },
+    ],
+  },
+  {
+    path: '/tutor/:id',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/tutor/TutorForm.vue') },
+    ],
+  },
+  {
+    path: '/tutelado',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/tutelado/TuteladoList.vue') },
+    ],
+  },
 
   // Always leave this as last one,
   // but you can also remove it
