@@ -1,29 +1,37 @@
 <script setup>
-import { defineProps } from "vue";
+import { defineProps } from 'vue';
 
-const props = defineProps(['data', 'columns']);
+const props = defineProps(['data', 'labels', 'onDeleteItem']);
 
 </script>
 
 <template>
 
-  <q-card class="q-ma-md">
-    <q-markup-table>
-      <thead>
-        <tr>
-          <th class="text-center" v-for="col in props.columns">{{ col.label }}</th>
-        </tr>
-      </thead>
+  <q-markup-table class="q-mt-lg">
+    <thead>
+      <tr>
+        <th class="text-center" v-for="col in props.labels" :key="col.label">{{ col.label }}</th>
+      </tr>
+    </thead>
 
-      <tbody>
-        <tr v-for="data in props.data">
-          <td class="text-center" v-for="col in props.columns">{{ data[col.field] }}</td>
-          <q-td>
-            <q-btn flat icon="edit" />
-            <q-btn flat icon="delete" />
-          </q-td>
-        </tr>
-      </tbody>
-    </q-markup-table>
-  </q-card>
+    <tbody>
+      <tr v-for="(data, i) in props.data" :key="i">
+        <td class="text-center" v-for="col in props.labels" :key="col.id">{{ data[col.field] }}
+        </td>
+        <q-td>
+          <q-btn flat icon="edit" />
+          <q-btn flat icon="delete" @click="props.onDeleteItem(data.id)" />
+        </q-td>
+      </tr>
+
+      <tr v-if="props.data.length === 0">
+        <td :colspan="props.labels.length">
+          <q-btn flat icon="error" />
+          Nenhum dado disponível para visualização
+        </td>
+      </tr>
+    </tbody>
+
+  </q-markup-table>
+
 </template>

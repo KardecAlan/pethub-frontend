@@ -1,9 +1,21 @@
 import mockedData from '../mocks/data.json';
 
-async function getTutors() {
-  return mockedData.tutors;
+class TutorsData {
+  data = [];
+
+  constructor() {
+    this.data = mockedData.tutors;
+  }
+
+  async getTutors() {
+    return this.data;
+  }
+  
+  async deleteTutor(id) {
+    const newData = this.data.filter((tutor) => tutor.id !== id);
+    this.data = [...newData];
+    return this.data;
+  }  
 }
 
-export {
-  getTutors,
-};
+export default new TutorsData();
