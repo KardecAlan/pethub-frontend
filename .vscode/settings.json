@@ -6,7 +6,7 @@
   "editor.codeActionsOnSave": [
     "source.fixAll.eslint"
   ],
-  "files.eol": "\r\n",
+  "files.eol": "\n",
   "eslint.validate": [
     "javascript",
     "javascriptreact",
