@@ -1,6 +1,6 @@
 <script setup>
 
-import { onBeforeMount, ref, watch } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import TutorsServices from '../../services/tutors';
@@ -19,14 +19,10 @@ const tutorColumns = [
 
 const tutorsData = ref([]);
 let a = ref(0);
+
 onBeforeMount(async () => {
   tutorsData.value = await TutorsServices.getTutors();
 });
-
-watch(tutorsData, (value) => {
-  console.log(value.length);
-
-}, { deep: true, immediate: false });
 
 </script>
 
