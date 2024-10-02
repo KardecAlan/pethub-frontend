@@ -1,7 +1,7 @@
 <script setup>
 import { defineProps } from 'vue';
 
-const props = defineProps(['data', 'labels', 'onDeleteItem']);
+const props = defineProps(['data', 'labels', 'onDeleteItem', 'onEditItem']);
 
 </script>
 
@@ -19,7 +19,7 @@ const props = defineProps(['data', 'labels', 'onDeleteItem']);
         <td class="text-center" v-for="col in props.labels" :key="col.id">{{ data[col.field] }}
         </td>
         <q-td>
-          <q-btn flat icon="edit" />
+          <q-btn flat icon="edit" @click="props.onEditItem(data.id)"/>
           <q-btn flat icon="delete" @click="props.onDeleteItem(data.id)" />
         </q-td>
       </tr>

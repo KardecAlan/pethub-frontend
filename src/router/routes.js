@@ -10,7 +10,7 @@ const routes = [
     path: '/tutor',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/tutor/TutorList.vue') },
+      { path: '', component: () => import('src/pages/tutor/TutorPage.vue') },
     ],
   },
   {
@@ -21,7 +21,7 @@ const routes = [
     ],
   },
   {
-    path: '/tutor/:id',
+    path: '/tutor/editar/:id',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/tutor/TutorForm.vue') },

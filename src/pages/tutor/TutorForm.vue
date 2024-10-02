@@ -24,11 +24,9 @@ const tutorForm = ref(
 );
 
 const router = useRouter();
-
 const route = useRoute();
 
 const acao = ref('Cadastrar');
-
 const tutorId = route.params.id;
 
 async function findById(id) {

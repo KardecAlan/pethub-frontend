@@ -32,7 +32,9 @@ onBeforeMount(async () => {
     <q-btn color="primary" label="Novo" @click="() => router.push('/tutor/novo')" />
 
     <!-- Tabela com informacoes de tutores -->
-    <TableView :data="tutorsData" :labels="tutorColumns" :onDeleteItem="async (id) => {
+    <TableView :data="tutorsData" :labels="tutorColumns" :onEditItem="(tutorId) => {
+      router.push(`/tutor/editar/${tutorId}`);
+    }" :onDeleteItem="async (id) => {
       tutorsData = await TutorsServices.deleteTutor(id);
     }" />
 
