@@ -18,7 +18,6 @@ const tutorColumns = [
 ];
 
 const tutorsData = ref([]);
-let a = ref(0);
 
 onBeforeMount(async () => {
   tutorsData.value = await TutorsServices.getTutors();
