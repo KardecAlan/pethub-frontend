@@ -42,9 +42,10 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <div class="q-pa-lg">
+  <div class="q-ma-md q-px-lg">
 
-    <p class="text-h5">{{ isEditMode? 'Editar Dados de ': 'Cadastrar' }} Tutor</p>
+    <p class="text-h4 q-mb-lg">{{ isEditMode? 'Editar Dados de ': 'Cadastrar' }} Tutor</p>
+
     <q-form @submit="onSumbit" class="">
       <div class="row q-gutter-x-sm">
         <q-input v-model="formFields.nome" label="Nome" class="col" outlined />
@@ -59,7 +60,7 @@ onBeforeMount(async () => {
 
       <div class="q-mt-xl q-ml-auto row">
         <q-btn class="q-mr-sm col-2 q-py-sm" type="submit" label="Salvar" color="primary" />
-        <q-btn class="q-mr-sm col-2 q-py-sm" color="primary" outline label="Voltar"
+        <q-btn class="q-mr-sm col-2 q-py-sm" color="primary" outline label="Cancelar"
           @click="() => router.push('/tutor')" />
       </div>
     </q-form>

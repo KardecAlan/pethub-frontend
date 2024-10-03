@@ -27,9 +27,13 @@ onBeforeMount(async () => {
 
 <template>
 
-  <div class="q-ma-md">
-    <h1 class="text-h5">Tutores</h1>
-    <q-btn color="primary" label="Novo" @click="() => router.push('/tutor/novo')" />
+  <div class="q-ma-md q-px-lg">
+    <div class="row items-center justify-between">
+      <h1 class="text-h4 q-mr-lg">Tutores Cadastrados</h1>
+      <q-btn class="q-px-lg" style="height:40px" outline color="primary"
+      icon="add" label="Cadastrar Novo"
+        @click="() => router.push('/tutor/novo')" />
+    </div>
 
     <!-- Tabela com informacoes de tutores -->
     <TableView :data="tutorsData" :labels="tutorColumns" :onEditItem="(tutorId) => {
