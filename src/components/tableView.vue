@@ -19,8 +19,8 @@ const props = defineProps(['data', 'labels', 'onDeleteItem', 'onEditItem']);
         <td class="text-center" v-for="col in props.labels" :key="col.id">{{ data[col.field] }}
         </td>
         <q-td>
-          <q-btn flat icon="edit" @click="props.onEditItem(data.id)"/>
-          <q-btn flat icon="delete" @click="props.onDeleteItem(data.id)" />
+          <q-btn flat icon="edit" @click="props.onEditItem(data.id)" />
+          <q-btn flat class="text-red" icon="delete" @click="props.onDeleteItem(data.id)" />
         </q-td>
       </tr>
 
