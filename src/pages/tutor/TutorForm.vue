@@ -4,6 +4,7 @@ import { ref, onBeforeMount } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 
 import TutorsServices from '../../services/tutors';
+import { showPositiveToast } from '../../utils/ToastMessage';
 
 const formFields = ref(
   {
@@ -20,7 +21,6 @@ const route = useRoute();
 
 const isEditMode = route.path.search('editar') !== -1;
 
-/* LIFECYCLE HOOKS  */
 onBeforeMount(async () => {
   // CARREGA DADOS PARA EDITAR
   if (isEditMode) {
@@ -39,14 +39,32 @@ onBeforeMount(async () => {
   }
 });
 
+const onSubmit = () => {  
+  if (isEditMode) {
+    return saveTutor();
+  }
+  return createTutor();
+}
+
+const createTutor = async () => {
+  try {
+    await TutorsServices.createTutor(formFields.value);
+    showPositiveToast('Tutor cadastrado com sucesso!');
+    router.push('/tutor');
+  } catch (error) { 
+    console.log(error);
+  }
+}
+const saveTutor = async () => { }
+
 </script>
 
 <template>
   <div class="q-ma-md q-px-lg">
 
-    <p class="text-h4 q-mb-lg">{{ isEditMode? 'Editar Dados de ': 'Cadastrar' }} Tutor</p>
+    <p class="text-h4 q-mb-lg">{{ isEditMode ? 'Editar Dados de ' : 'Cadastrar' }} Tutor</p>
 
-    <q-form @submit="onSumbit" class="">
+    <q-form @submit="onSubmit">
       <div class="row q-gutter-x-sm">
         <q-input v-model="formFields.nome" label="Nome" class="col" outlined />
         <q-input v-model="formFields.email" label="Email" class="col" outlined />
