@@ -10,7 +10,8 @@ class TutorsData {
   }
 
   async getById(id) {
-    for (const tutor of this.tutors) {
+    for (let i = 0; i < this.tutors.length; i++) {
+      const tutor = this.tutors[i];
       if (tutor.id === id) {
         return tutor;
       }
@@ -21,21 +22,16 @@ class TutorsData {
 
   async createTutor(tutorData) {
     // VERIFICA SE O TUTOR JA ESTA CADASTRADO
-    this.tutors.forEach(tutor => {
-      
+    this.tutors.forEach((tutor) => {
       if (tutorData.cpf === tutor.cpf) {
-        console.log(tutorData.cpf);
-        console.log(tutor.cpf);
-        
-        throw new Error("Tutor já cadastrado");
+        throw new Error('Tutor já cadastrado');
       }
     });
-  
+
     this.tutors.push({
       id: Math.random().toString(),
       ...tutorData,
     });
-
   }
 
   async deleteTutor(id) {

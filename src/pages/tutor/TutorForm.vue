@@ -39,23 +39,24 @@ onBeforeMount(async () => {
   }
 });
 
-const onSubmit = () => {  
-  if (isEditMode) {
-    return saveTutor();
-  }
-  return createTutor();
-}
-
 const createTutor = async () => {
   try {
     await TutorsServices.createTutor(formFields.value);
     showPositiveToast('Tutor cadastrado com sucesso!');
     router.push('/tutor');
-  } catch (error) { 
-    console.log(error);
+  } catch (error) {
+    /* console.log(error); */
   }
-}
-const saveTutor = async () => { }
+};
+
+const saveTutor = async () => { };
+
+const onSubmit = () => {
+  if (isEditMode) {
+    return saveTutor();
+  }
+  return createTutor();
+};
 
 </script>
 
