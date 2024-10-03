@@ -1,157 +1,70 @@
 <script setup>
 
-import { ref, onBeforeMount, onMounted } from 'vue';
-import { api } from 'boot/axios';
-import { Notify } from 'quasar';
+import { ref, onBeforeMount } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 
-const tutorForm = ref(
+import TutorsServices from '../../services/tutors';
+
+const formFields = ref(
   {
     nome: '',
     cpf: '',
     email: '',
     telefone: '',
-    endereco: {
-      cep: '',
-      logradouro: '',
-      numero: '',
-      complemento: '',
-      bairro: '',
-      cidade: '',
-      estado: '',
-    },
+    endereco: '',
   },
 );
 
 const router = useRouter();
 const route = useRoute();
 
-const acao = ref('Cadastrar');
-const tutorId = route.params.id;
+const isEditMode = route.path.search('editar') !== -1;
 
-async function findById(id) {
-  if (id) {
-    acao.value = 'Alterar';
-    const response = await api.get(`/tutors/${id}`);
-    tutorForm.value = {
-      ...response.data,
-      endereco: response.data.endereco == null ? {
-        cep: '',
-        logradouro: '',
-        numero: '',
-        complemento: '',
-        bairro: '',
-        cidade: '',
-        estado: '',
-      } : response.data.endereco,
-    };
-  }
-}
-
-const cadatrarTutor = async () => {
-  try {
-    await api.post('/tutors', tutorForm.value);
-    Notify.create({
-      message: 'Tutor cadastrado com sucesso!',
-      color: 'positive',
-    });
-  } catch (error) {
-    Notify.create({
-      message: 'Erro ao cadastrar tutor!',
-      color: 'negative',
-    });
-  }
-};
-const alterarTutor = async () => {
-  try {
-    await api.put(`/tutors/${tutorForm.value.id}`, tutorForm.value);
-    Notify.create({
-      message: 'Tutor alterado com sucesso!',
-      color: 'positive',
-    });
-  } catch (error) {
-    Notify.create({
-      message: 'Erro ao alterar tutor!',
-      color: 'negative',
-    });
-  }
-};
-
-const onSumbit = () => {
-  if (acao.value === 'Cadastrar') {
-    cadatrarTutor();
-  } else {
-    alterarTutor();
-  }
-};
-
+/* LIFECYCLE HOOKS  */
 onBeforeMount(async () => {
-  if (route.params.id) {
-    acao.value = 'Alterar';
-    const { data } = await api.get(`/tutors/${route.params.id}`);
-    tutorForm.value = data;
-  }
-});
+  // CARREGA DADOS PARA EDITAR
+  if (isEditMode) {
+    try {
+      const id = Number.parseInt(route.params.id, 10);
+      const data = await TutorsServices.getById(id);
 
-onMounted(() => {
-  findById(tutorId);
+      formFields.value.nome = data.nome;
+      formFields.value.cpf = data.cpf;
+      formFields.value.email = data.email;
+      formFields.value.endereco = data.endereco;
+      formFields.value.telefone = data.telefone;
+    } catch (error) {
+      /* nothing */
+    }
+  }
 });
 
 </script>
 
 <template>
-      <q-card class="q-ma-md">
-        <q-card-section>
-          <p class="text-h5">{{ acao }} Tutor</p>
-          <q-form @submit="onSumbit" class="row">
-            <q-input
-              v-model="tutorForm.nome"
-              label="Nome"
-              class="col-3"
-              outlined
-            />
-            <q-input
-              v-model="tutorForm.cpf"
-              label="CPF"
-              class="col-3"
-              outlined
-            />
-            <q-input
-              v-model="tutorForm.email"
-              label="Email"
-              class="col-3"
-              outlined
-            />
-            <q-input
-              v-model="tutorForm.telefone"
-              label="Telefone"
-              class="col-3"
-              outlined
-            />
-            <q-input
-              v-model="tutorForm.endereco.cep"
-              label="CEP"
-              class="col-3"
-              outlined
-            />
-            <div class="col-12 q-mt-md">
-              <q-btn
-                type="submit"
-                label="Salvar"
-                color="primary"
-                class="q-mr-sm"
-              />
-              <q-btn
-                color="primary"
-                label="Voltar"
-                @click="() => router.push('/tutor')"
-              />
-            </div>
-          </q-form>
-        </q-card-section>
-      </q-card>
+  <div class="q-pa-lg">
+
+    <p class="text-h5">{{ acao }} Tutor</p>
+    <q-form @submit="onSumbit" class="">
+      <div class="row q-gutter-x-sm">
+        <q-input v-model="formFields.nome" label="Nome" class="col" outlined />
+        <q-input v-model="formFields.email" label="Email" class="col" outlined />
+      </div>
+
+      <div class="row justify-between q-mt-sm q-gutter-x-sm">
+        <q-input v-model="formFields.telefone" label="Telefone" class="col" outlined />
+        <q-input v-model="formFields.endereco" label="Endereço" class="col" outlined />
+        <q-input v-model="formFields.cpf" label="CPF" class="col" outlined />
+      </div>
+
+      <div class="q-mt-xl q-ml-auto row">
+        <q-btn class="q-mr-sm col-2 q-py-sm" type="submit" label="Salvar" color="primary" />
+        <q-btn class="q-mr-sm col-2 q-py-sm" color="primary" outline label="Voltar"
+          @click="() => router.push('/tutor')" />
+      </div>
+    </q-form>
+
+  </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
