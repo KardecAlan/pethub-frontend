@@ -44,7 +44,7 @@ onBeforeMount(async () => {
 <template>
   <div class="q-pa-lg">
 
-    <p class="text-h5">{{ acao }} Tutor</p>
+    <p class="text-h5">{{ isEditMode? 'Editar Dados de ': 'Cadastrar' }} Tutor</p>
     <q-form @submit="onSumbit" class="">
       <div class="row q-gutter-x-sm">
         <q-input v-model="formFields.nome" label="Nome" class="col" outlined />
