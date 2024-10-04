@@ -66,15 +66,23 @@ const onSubmit = () => {
     <p class="text-h4 q-mb-lg">{{ isEditMode ? 'Editar Dados de ' : 'Cadastrar' }} Tutor</p>
 
     <q-form @submit="onSubmit">
-      <div class="row q-gutter-x-sm">
-        <q-input v-model="formFields.nome" label="Nome" class="col" outlined />
-        <q-input v-model="formFields.email" label="Email" class="col" outlined />
+
+      <q-input required v-model="formFields.nome" label="Nome" class="col" outlined />
+
+      <div class="row q-gutter-x-sm  q-mt-sm">
+        <q-input required v-model="formFields.email" label="Email" class="col" outlined />
+
+        <q-input required v-model="formFields.telefone" label="Telefone" placeholder="DDD + numero"
+        class="col" outlined />
       </div>
 
       <div class="row justify-between q-mt-sm q-gutter-x-sm">
-        <q-input v-model="formFields.telefone" label="Telefone" class="col" outlined />
-        <q-input v-model="formFields.endereco" label="Endereço" class="col" outlined />
-        <q-input v-model="formFields.cpf" label="CPF" class="col" outlined />
+
+        <q-input required v-model="formFields.endereco" label="Endereço" class="col" outlined />
+
+        <q-input required v-model="formFields.cpf" label="CPF" placeholder="000.000.000-00"
+        class="col" outlined />
+
       </div>
 
       <div class="q-mt-xl q-ml-auto row">
