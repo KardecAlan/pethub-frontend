@@ -1,159 +1,103 @@
 <script setup>
 
-import { ref, onBeforeMount, onMounted } from 'vue';
-import { api } from 'boot/axios';
-import { Notify } from 'quasar';
+import { ref, onBeforeMount } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 
-const tutorForm = ref(
+import TutorsServices from '../../services/tutors';
+import { showPositiveToast, showNegativeToast } from '../../utils/ToastMessage';
+
+const formFields = ref(
   {
     nome: '',
     cpf: '',
     email: '',
     telefone: '',
-    endereco: {
-      cep: '',
-      logradouro: '',
-      numero: '',
-      complemento: '',
-      bairro: '',
-      cidade: '',
-      estado: '',
-    },
+    endereco: '',
   },
 );
 
 const router = useRouter();
-
 const route = useRoute();
 
-const acao = ref('Cadastrar');
-
+const isEditMode = route.path.search('editar') !== -1;
 const tutorId = route.params.id;
 
-async function findById(id) {
-  if (id) {
-    acao.value = 'Alterar';
-    const response = await api.get(`/tutors/${id}`);
-    tutorForm.value = {
-      ...response.data,
-      endereco: response.data.endereco == null ? {
-        cep: '',
-        logradouro: '',
-        numero: '',
-        complemento: '',
-        bairro: '',
-        cidade: '',
-        estado: '',
-      } : response.data.endereco,
-    };
-  }
-}
-
-const cadatrarTutor = async () => {
-  try {
-    await api.post('/tutors', tutorForm.value);
-    Notify.create({
-      message: 'Tutor cadastrado com sucesso!',
-      color: 'positive',
-    });
-  } catch (error) {
-    Notify.create({
-      message: 'Erro ao cadastrar tutor!',
-      color: 'negative',
-    });
-  }
-};
-const alterarTutor = async () => {
-  try {
-    await api.put(`/tutors/${tutorForm.value.id}`, tutorForm.value);
-    Notify.create({
-      message: 'Tutor alterado com sucesso!',
-      color: 'positive',
-    });
-  } catch (error) {
-    Notify.create({
-      message: 'Erro ao alterar tutor!',
-      color: 'negative',
-    });
-  }
-};
-
-const onSumbit = () => {
-  if (acao.value === 'Cadastrar') {
-    cadatrarTutor();
-  } else {
-    alterarTutor();
-  }
-};
-
 onBeforeMount(async () => {
-  if (route.params.id) {
-    acao.value = 'Alterar';
-    const { data } = await api.get(`/tutors/${route.params.id}`);
-    tutorForm.value = data;
+  // CARREGA DADOS PARA EDITAR
+  if (isEditMode) {
+    try {
+      const data = await TutorsServices.getById(tutorId);
+
+      formFields.value.nome = data.nome;
+      formFields.value.cpf = data.cpf;
+      formFields.value.email = data.email;
+      formFields.value.endereco = data.endereco;
+      formFields.value.telefone = data.telefone;
+    } catch (error) {
+      console.log(error);
+      /* nothing */
+    }
   }
 });
 
-onMounted(() => {
-  findById(tutorId);
-});
+const createTutor = async () => {
+  try {
+    await TutorsServices.createTutor(formFields.value);
+    showPositiveToast('Tutor cadastrado com sucesso!');
+    router.push('/tutor');
+  } catch (error) {
+    showNegativeToast('Tutor informado já está cadastrado!');
+  }
+};
+
+const saveTutor = async () => {
+  try {
+    await TutorsServices.saveTutor(tutorId, formFields.value);
+    showPositiveToast('Dados salvos com sucesso!');
+    router.push('/tutor');
+  } catch (error) {
+    showNegativeToast('Não é possivel salvar os dados no momento!');
+  }
+};
+
+const onSubmit = () => {
+  if (isEditMode) {
+    return saveTutor();
+  }
+  return createTutor();
+};
 
 </script>
 
 <template>
-      <q-card class="q-ma-md">
-        <q-card-section>
-          <p class="text-h5">{{ acao }} Tutor</p>
-          <q-form @submit="onSumbit" class="row">
-            <q-input
-              v-model="tutorForm.nome"
-              label="Nome"
-              class="col-3"
-              outlined
-            />
-            <q-input
-              v-model="tutorForm.cpf"
-              label="CPF"
-              class="col-3"
-              outlined
-            />
-            <q-input
-              v-model="tutorForm.email"
-              label="Email"
-              class="col-3"
-              outlined
-            />
-            <q-input
-              v-model="tutorForm.telefone"
-              label="Telefone"
-              class="col-3"
-              outlined
-            />
-            <q-input
-              v-model="tutorForm.endereco.cep"
-              label="CEP"
-              class="col-3"
-              outlined
-            />
-            <div class="col-12 q-mt-md">
-              <q-btn
-                type="submit"
-                label="Salvar"
-                color="primary"
-                class="q-mr-sm"
-              />
-              <q-btn
-                color="primary"
-                label="Voltar"
-                @click="() => router.push('/tutor')"
-              />
-            </div>
-          </q-form>
-        </q-card-section>
-      </q-card>
+  <div class="q-ma-md q-px-lg">
+
+    <p class="text-h4 q-mb-lg">{{ isEditMode ? 'Editar Dados de ' : 'Cadastrar' }} Tutor</p>
+
+    <q-form @submit="onSubmit">
+      <q-input required v-model="formFields.nome" label="Nome" class="col" outlined />
+
+      <div class="row q-gutter-x-sm  q-mt-sm">
+        <q-input required v-model="formFields.email" label="Email" class="col" outlined />
+        <q-input required v-model="formFields.telefone"
+        label="Telefone" placeholder="DDD + numero" class="col" outlined />
+      </div>
+
+      <div class="row justify-between q-mt-sm q-gutter-x-sm">
+        <q-input required v-model="formFields.endereco"
+        label="Endereço" class="col" outlined />
+        <q-input required v-model="formFields.cpf" label="CPF"
+        placeholder="000.000.000-00" class="col" outlined />
+      </div>
+      <!--Form Buttons -->
+      <div class="q-mt-xl q-ml-auto row">
+        <q-btn class="q-mr-sm col-2 q-py-sm" type="submit" label="Salvar" color="primary" />
+        <q-btn class="q-mr-sm col-2 q-py-sm" color="primary" outline label="Cancelar"
+          @click="() => router.push('/tutor')" />
+      </div>
+    </q-form>
+
+  </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
