@@ -12,7 +12,8 @@ class TutorsData {
   async getById(id) {
     for (let i = 0; i < this.tutors.length; i++) {
       const tutor = this.tutors[i];
-      if (tutor.id === id) {
+
+      if (tutor.id == id) {
         return tutor;
       }
     }
@@ -22,11 +23,9 @@ class TutorsData {
 
   async createTutor(tutorData) {
     // VERIFICA SE O TUTOR JA ESTA CADASTRADO
-    this.tutors.forEach((tutor) => {
-      if (tutorData.cpf === tutor.cpf) {
-        throw new Error('Tutor já cadastrado');
-      }
-    });
+    if (!this.hasTutor()) {
+      throw new Error('Tutor já cadastrado');
+    }
 
     this.tutors.push({
       id: Math.random().toString(),
@@ -34,10 +33,35 @@ class TutorsData {
     });
   }
 
+  async saveTutor(id, tutorData) {
+    for (let i = 0; i < this.tutors.length; i++) {
+      const tutor = this.tutors[i];
+      if (tutor.id == id) {
+        const newData = { id, ...tutorData };
+        this.tutors[i] = newData;
+        return;
+      }
+    }
+
+    throw new Error("Tutor não cadastrado");
+    
+  }
+
   async deleteTutor(id) {
     const newData = this.tutors.filter((tutor) => tutor.id !== id);
     this.tutors = [...newData];
     return this.tutors;
+  }
+
+  async hasTutor(tutorCpf) {
+    for (let i = 0; i < this.tutors.length; i++) {
+      const tutor = this.tutors[i];
+      if (tutorCpf === tutor.cpf) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }
 
