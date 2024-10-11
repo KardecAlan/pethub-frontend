@@ -4,7 +4,7 @@ import { onBeforeMount, ref } from 'vue';
 import { api } from 'boot/axios';
 import { useRouter } from 'vue-router';
 
-const tuteladoList = [
+const petList = [
   {
     name: 'id',
     label: 'ID',
@@ -49,13 +49,13 @@ const tuteladoList = [
   },
 ];
 
-const dadosTutelado = ref([]);
+const dadospet = ref([]);
 
 const router = useRouter();
 
 onBeforeMount(async () => {
-  const response = await api.get('/tutelados');
-  dadosTutelado.value = response.data.content;
+  const response = await api.get('/pets');
+  dadospet.value = response.data.content;
 });
 
 </script>
@@ -65,28 +65,19 @@ onBeforeMount(async () => {
     <q-page>
       <q-card>
         <q-card-section>
-          Tutelado
+          pet
         </q-card-section>
 
         <q-card-section>
-          <q-btn
-            color="primary"
-            label="Novo"
-            @click="() => router.push('/tutelado/novo')"
-          />
+          <q-btn color="primary" label="Novo" @click="() => router.push('/pet/novo')" />
         </q-card-section>
 
         <q-card-section>
-          <q-table
-            :rows="dadosTutelado"
-            :columns="tuteladoList"
-          />
+          <q-table :rows="dadospet" :columns="petList" />
         </q-card-section>
       </q-card>
     </q-page>
   </q-page-container>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

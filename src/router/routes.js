@@ -28,10 +28,10 @@ const routes = [
     ],
   },
   {
-    path: '/tutelado',
+    path: '/pet',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('src/pages/tutelado/TuteladoPage.vue') },
+      { path: '', component: () => import('src/pages/pet/petPage.vue') },
     ],
   },
 

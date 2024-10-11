@@ -49,9 +49,9 @@ const linksList = [
     link: '/tutor',
   },
   {
-    title: 'Gerenciar Tutelados',
+    title: 'Gerenciar pets',
     icon: 'school',
-    link: '/tutelado',
+    link: '/pet',
   },
 ];
 
