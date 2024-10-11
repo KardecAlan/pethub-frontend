@@ -4,16 +4,16 @@ import { onBeforeMount, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import TableView from 'src/components/TableView.vue';
-import TutorsServices from '../../services/tutors';
+import PetsServices from '../../services/pets';
 
 const router = useRouter();
 
-const tutorColumns = ref([]);
-const tutorsData = ref([]);
+const petColumns = ref([]);
+const petsData = ref([]);
 
 onBeforeMount(async () => {
-  tutorsData.value = await TutorsServices.getTutors();
-  tutorColumns.value = Object.keys(tutorsData.value[0]);
+  petsData.value = await PetsServices.getPets();
+  petColumns.value = Object.keys(petsData.value[0]);
 });
 
 </script>
@@ -22,7 +22,7 @@ onBeforeMount(async () => {
 
   <div class="q-ma-md q-px-lg">
     <div class="row items-center justify-between">
-      <h1 class="text-h4 q-mr-lg">Tutores Cadastrados</h1>
+      <h1 class="text-h4 q-mr-lg">Pets Cadastrados</h1>
       <q-btn
         class="q-px-lg"
         style="height:40px"
@@ -30,17 +30,17 @@ onBeforeMount(async () => {
         color="primary"
         icon="add"
         label="Cadastrar Novo"
-        @click="() => router.push('/tutor/novo')"
+        @click="() => router.push('/pet/novo')"
       />
     </div>
 
-    <!-- Tabela com informacoes de tutores -->
+    <!-- Tabela com informacoes de petes -->
     <TableView
-      :data="tutorsData"
-      :labels="tutorColumns"
-      :onEditItem="(tutorId) => router.push(`/tutor/editar/${tutorId}`)"
+      :data="petsData"
+      :labels="petColumns"
+      :onEditItem="(petId) => router.push(`/pet/editar/${petId}`)"
       :onDeleteItem="async (id) => {
-        tutorsData = await TutorsServices.deleteTutor(id);
+        petsData = await petsServices.deletepet(id);
       }"
     />
 
