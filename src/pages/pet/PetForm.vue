@@ -11,7 +11,7 @@ const formFields = ref(
     nome: '',
     especie: '',
     sexo: '',
-    idade: '',
+    idade: '1',
     peso: '',
   },
 );
@@ -69,25 +69,54 @@ const onSubmit = () => {
 </script>
 
 <template>
-  <div class="q-ma-md q-px-lg">
+  <div class="q-ma-md q-px-lg q-pr-xl q-mr-xl">
 
     <p class="text-h4 q-mb-lg">{{ isEditMode ? 'Editar Dados de ' : 'Cadastrar' }} pet</p>
 
     <q-form @submit="onSubmit">
-      <q-input required v-model="formFields.nome" label="Nome" class="col" outlined />
-
-      <div class="row q-gutter-x-sm  q-mt-sm">
-        <q-input required v-model="formFields.especie" label="Especie" class="col" outlined />
-        <q-input required v-model="formFields.idade"
-        label="Idade" class="col" outlined />
+      <div class="row q-gutter-x-sm q-mt-sm q-pr-xl q-mr-xl">
+        <!-- Nome -->
+        <q-input required v-model="formFields.nome" label="Nome" class="col" outlined />
+        <!-- Especie -->
+        <q-select
+          required
+          v-model="formFields.especie"
+          label="Especie"
+          class="col"
+          outlined
+          :options="['Cachorro', 'Gato', 'Hamster', 'Coelho', 'Twister']"
+        />
+      </div>
+      <div class="row q-gutter-x-sm  q-mt-sm q-pr-xl q-mr-xl">
+        <!-- Idade -->
+        <q-input
+          type="number"
+          min="1"
+          required
+          v-model="formFields.idade"
+          label="Idade (Meses)"
+          class="col"
+          outlined
+        />
+        <!-- Sexo -->
+        <q-select
+          required
+          v-model="formFields.sexo"
+          label="Sexo"
+          class="col"
+          outlined
+          :options="['M', 'F']"
+        />
+        <!-- Peso -->
+        <q-input
+          required
+          type="number"
+          v-model="formFields.peso"
+          label="Peso (Kg)"
+          class="col"
+          outlined />
       </div>
 
-      <div class="row justify-between q-mt-sm q-gutter-x-sm">
-        <q-input required v-model="formFields.sexo"
-        label="Sexo" class="col" outlined />
-        <q-input required v-model="formFields.peso" label="Peso"
-        placeholder="000.000.000-00" class="col" outlined />
-      </div>
       <!--Form Buttons -->
       <div class="q-mt-xl q-ml-auto row">
         <q-btn class="q-mr-sm col-2 q-py-sm" type="submit" label="Salvar" color="primary" />
