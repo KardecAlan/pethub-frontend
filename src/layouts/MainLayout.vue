@@ -34,24 +34,24 @@ defineOptions({
 
 const linksList = [
   {
-    title: 'Ficha Medica',
-    icon: 'school',
-    link: '/fichamedica',
-  },
-  {
-    title: 'Consultar Historico Clinico',
-    icon: 'school',
-    link: '/historicosclinico',
+    title: 'Consultar Pets',
+    icon: 'search',
+    link: '/',
   },
   {
     title: 'Gerenciar Tutores',
-    icon: 'school',
+    icon: 'settings',
     link: '/tutor',
   },
   {
     title: 'Gerenciar pets',
-    icon: 'school',
+    icon: 'settings',
     link: '/pet',
+  },
+  {
+    title: 'Encerrar Sessão',
+    icon: 'logout',
+    link: '/logout',
   },
 ];
 
