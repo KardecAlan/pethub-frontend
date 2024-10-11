@@ -5,14 +5,14 @@ function showToast(message, type) {
 }
 
 function showPositiveToast(message) {
-  showToast(message,'positive');
+  showToast(message, 'positive');
 }
 
 function showNegativeToast(message) {
- showToast(message,'negative');
+  showToast(message, 'negative');
 }
 
 export {
   showNegativeToast,
-  showPositiveToast
-}
+  showPositiveToast,
+};
