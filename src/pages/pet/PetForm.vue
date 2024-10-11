@@ -1,43 +1,102 @@
 <script setup>
 
-import { ref } from 'vue';
+import { ref, onBeforeMount } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 
-const petForm = ref(
+import petsServices from '../../services/pets';
+import { showPositiveToast, showNegativeToast } from '../../utils/ToastMessage';
+
+const formFields = ref(
   {
     nome: '',
-    sexo: '',
     especie: '',
+    sexo: '',
     idade: '',
     peso: '',
-    tutorId: '',
   },
 );
+
+const router = useRouter();
+const route = useRoute();
+
+const isEditMode = route.path.search('editar') !== -1;
+const petId = route.params.id;
+
+onBeforeMount(async () => {
+  // CARREGA DADOS PARA EDITAR
+  if (isEditMode) {
+    try {
+      const data = await petsServices.getById(petId);
+
+      formFields.value.nome = data.nome;
+      formFields.value.especie = data.especie;
+      formFields.value.sexo = data.sexo;
+      formFields.value.idade = data.idade;
+      formFields.value.peso = data.peso;
+    } catch (error) {
+      /* nothing */
+    }
+  }
+});
+
+const createPet = async () => {
+  try {
+    await petsServices.createPet(formFields.value);
+    showPositiveToast('pet cadastrado com sucesso!');
+    router.push('/pet');
+  } catch (error) {
+    showNegativeToast('pet informado já está cadastrado!');
+  }
+};
+
+const savePet = async () => {
+  try {
+    await petsServices.savePet(petId, formFields.value);
+    showPositiveToast('Dados salvos com sucesso!');
+    router.push('/pet');
+  } catch (error) {
+    showNegativeToast('Não é possivel salvar os dados no momento!');
+  }
+};
+
+const onSubmit = () => {
+  if (isEditMode) {
+    return savePet();
+  }
+  return createPet();
+};
 
 </script>
 
 <template>
-  <q-page-container>
-    <q-page>
-      <q-card>
-        <q-card-section>
-          <h2>Cadastrar pet</h2>
-        </q-card-section>
+  <div class="q-ma-md q-px-lg">
 
-        <q-card-section>
-          <q-form class="row">
-            <q-input v-model="petForm.nome" label="Nome" class="col-3" outlined />
-            <q-input v-model="petForm.especie" label="Especie" class="col-3" outlined />
-            <q-input v-model="petForm.sexo" label="Sexo" class="col-3" outlined />
-            <q-input v-model="petForm.idade" label="Idade" class="col-3" outlined />
-            <q-input v-model="petForm.peso" label="Peso" class="col-3" outlined />
-            <q-input v-model="petForm.tutorId" label="Tutor" class="col-3" outlined />
-            <q-btn type="submit" label="Salvar" color="primary" />
-          </q-form>
-        </q-card-section>
-      </q-card>
-    </q-page>
-  </q-page-container>
+    <p class="text-h4 q-mb-lg">{{ isEditMode ? 'Editar Dados de ' : 'Cadastrar' }} pet</p>
 
+    <q-form @submit="onSubmit">
+      <q-input required v-model="formFields.nome" label="Nome" class="col" outlined />
+
+      <div class="row q-gutter-x-sm  q-mt-sm">
+        <q-input required v-model="formFields.especie" label="Especie" class="col" outlined />
+        <q-input required v-model="formFields.idade"
+        label="Idade" class="col" outlined />
+      </div>
+
+      <div class="row justify-between q-mt-sm q-gutter-x-sm">
+        <q-input required v-model="formFields.sexo"
+        label="Sexo" class="col" outlined />
+        <q-input required v-model="formFields.peso" label="Peso"
+        placeholder="000.000.000-00" class="col" outlined />
+      </div>
+      <!--Form Buttons -->
+      <div class="q-mt-xl q-ml-auto row">
+        <q-btn class="q-mr-sm col-2 q-py-sm" type="submit" label="Salvar" color="primary" />
+        <q-btn class="q-mr-sm col-2 q-py-sm" color="primary" outline label="Cancelar"
+          @click="() => router.push('/pet')" />
+      </div>
+    </q-form>
+
+  </div>
 </template>
 
 <style scoped></style>

@@ -34,6 +34,13 @@ const routes = [
       { path: '', component: () => import('src/pages/pet/PetPage.vue') },
     ],
   },
+  {
+    path: '/pet/novo',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('src/pages/pet/PetForm.vue') },
+    ],
+  },
 
   // Always leave this as last one,
   // but you can also remove it

@@ -40,7 +40,7 @@ onBeforeMount(async () => {
       :labels="petColumns"
       :onEditItem="(petId) => router.push(`/pet/editar/${petId}`)"
       :onDeleteItem="async (id) => {
-        petsData = await petsServices.deletepet(id);
+        petsData = await PetsServices.deletePet(id);
       }"
     />
 
