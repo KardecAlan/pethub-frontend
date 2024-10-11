@@ -34,34 +34,24 @@ defineOptions({
 
 const linksList = [
   {
-    title: 'Medico',
-    icon: 'school',
-    link: 'https://quasar.dev',
-  },
-  {
-    title: 'Tutor',
-    icon: 'school',
-    link: '/tutor',
-  },
-  {
-    title: 'Tutelado',
-    icon: 'school',
-    link: '/tutelado',
-  },
-  {
-    title: 'Endereco',
-    icon: 'school',
-    link: '/endereco',
-  },
-  {
     title: 'Ficha Medica',
     icon: 'school',
     link: '/fichamedica',
   },
   {
-    title: 'Historico Clinico',
+    title: 'Consultar Historico Clinico',
     icon: 'school',
     link: '/historicosclinico',
+  },
+  {
+    title: 'Gerenciar Tutores',
+    icon: 'school',
+    link: '/tutor',
+  },
+  {
+    title: 'Gerenciar Tutelados',
+    icon: 'school',
+    link: '/tutelado',
   },
 ];
 
