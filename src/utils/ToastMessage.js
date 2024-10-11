@@ -1,7 +1,7 @@
 import { Notify } from 'quasar';
 
 function showToast(message, type) {
-  Notify.create({message, color: type});
+  Notify.create({ message, color: type });
 }
 
 function showPositiveToast(message) {

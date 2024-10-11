@@ -10,7 +10,11 @@ const props = defineProps(['data', 'labels', 'onDeleteItem', 'onEditItem']);
   <q-markup-table class="q-mt-lg">
     <thead>
       <tr>
-        <th class="text-center" v-for="col in props.labels" :key="col.label">{{col.toUpperCase()}}</th>
+        <th
+        class="text-center"
+        v-for="col in props.labels"
+        :key="col.label"
+        >{{col.toUpperCase()}}</th>
       </tr>
     </thead>
 

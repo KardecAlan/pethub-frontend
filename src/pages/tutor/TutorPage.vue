@@ -3,7 +3,7 @@
 import { onBeforeMount, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import TableView from 'src/components/TableView';
+import TableView from 'src/components/TableView.vue';
 import TutorsServices from '../../services/tutors';
 
 const router = useRouter();
@@ -23,18 +23,25 @@ onBeforeMount(async () => {
   <div class="q-ma-md q-px-lg">
     <div class="row items-center justify-between">
       <h1 class="text-h4 q-mr-lg">Tutores Cadastrados</h1>
-      <q-btn class="q-px-lg" style="height:40px" outline color="primary" icon="add" label="Cadastrar Novo"
-        @click="() => router.push('/tutor/novo')" />
+      <q-btn
+        class="q-px-lg"
+        style="height:40px"
+        outline
+        color="primary"
+        icon="add"
+        label="Cadastrar Novo"
+        @click="() => router.push('/tutor/novo')"
+      />
     </div>
 
     <!-- Tabela com informacoes de tutores -->
-    <TableView 
-      :data="tutorsData" 
+    <TableView
+      :data="tutorsData"
       :labels="tutorColumns"
-      :onEditItem="(tutorId) => router.push(`/tutor/editar/${tutorId}`)" 
+      :onEditItem="(tutorId) => router.push(`/tutor/editar/${tutorId}`)"
       :onDeleteItem="async (id) => {
         tutorsData = await TutorsServices.deleteTutor(id);
-      }" 
+      }"
     />
 
   </div>

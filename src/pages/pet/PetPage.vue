@@ -1,83 +1,50 @@
 <script setup>
 
 import { onBeforeMount, ref } from 'vue';
-import { api } from 'boot/axios';
 import { useRouter } from 'vue-router';
 
-const petList = [
-  {
-    name: 'id',
-    label: 'ID',
-    field: 'id',
-    align: 'left',
-  },
-  {
-    name: 'nome',
-    label: 'Nome',
-    field: 'nome',
-    align: 'left',
-  },
-  {
-    name: 'sexo',
-    label: 'Sexo',
-    field: 'sexo',
-    align: 'left',
-  },
-  {
-    name: 'especie',
-    label: 'Especie',
-    field: 'especie',
-    align: 'left',
-  },
-  {
-    name: 'idade',
-    label: 'Idade',
-    field: 'idade',
-    align: 'left',
-  },
-  {
-    name: 'peso',
-    label: 'Peso',
-    field: 'peso',
-    align: 'left',
-  },
-  {
-    name: 'tutorNome',
-    label: 'Tutor',
-    field: 'tutorNome',
-    align: 'left',
-  },
-];
-
-const dadospet = ref([]);
+import TableView from 'src/components/TableView.vue';
+import TutorsServices from '../../services/tutors';
 
 const router = useRouter();
 
+const tutorColumns = ref([]);
+const tutorsData = ref([]);
+
 onBeforeMount(async () => {
-  const response = await api.get('/pets');
-  dadospet.value = response.data.content;
+  tutorsData.value = await TutorsServices.getTutors();
+  tutorColumns.value = Object.keys(tutorsData.value[0]);
 });
 
 </script>
 
 <template>
-  <q-page-container>
-    <q-page>
-      <q-card>
-        <q-card-section>
-          pet
-        </q-card-section>
 
-        <q-card-section>
-          <q-btn color="primary" label="Novo" @click="() => router.push('/pet/novo')" />
-        </q-card-section>
+  <div class="q-ma-md q-px-lg">
+    <div class="row items-center justify-between">
+      <h1 class="text-h4 q-mr-lg">Tutores Cadastrados</h1>
+      <q-btn
+        class="q-px-lg"
+        style="height:40px"
+        outline
+        color="primary"
+        icon="add"
+        label="Cadastrar Novo"
+        @click="() => router.push('/tutor/novo')"
+      />
+    </div>
 
-        <q-card-section>
-          <q-table :rows="dadospet" :columns="petList" />
-        </q-card-section>
-      </q-card>
-    </q-page>
-  </q-page-container>
+    <!-- Tabela com informacoes de tutores -->
+    <TableView
+      :data="tutorsData"
+      :labels="tutorColumns"
+      :onEditItem="(tutorId) => router.push(`/tutor/editar/${tutorId}`)"
+      :onDeleteItem="async (id) => {
+        tutorsData = await TutorsServices.deleteTutor(id);
+      }"
+    />
+
+  </div>
 </template>
 
 <style scoped></style>
