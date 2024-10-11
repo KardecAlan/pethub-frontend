@@ -10,13 +10,13 @@ const props = defineProps(['data', 'labels', 'onDeleteItem', 'onEditItem']);
   <q-markup-table class="q-mt-lg">
     <thead>
       <tr>
-        <th class="text-center" v-for="col in props.labels" :key="col.label">{{ col.label }}</th>
+        <th class="text-center" v-for="col in props.labels" :key="col.label">{{col.toUpperCase()}}</th>
       </tr>
     </thead>
 
     <tbody>
       <tr v-for="(data, i) in props.data" :key="i">
-        <td class="text-center" v-for="col in props.labels" :key="col.id">{{ data[col.field] }}
+        <td class="text-center" v-for="col in props.labels" :key="col.id">{{ data[col] }}
         </td>
         <q-td>
           <q-btn flat icon="edit" @click="props.onEditItem(data.id)" />
