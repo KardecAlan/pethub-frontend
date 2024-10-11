@@ -1,4 +1,4 @@
-import mockedData from '../mocks/data.json';
+import mockedData from '../mocks/tutors.json';
 
 class TutorsData {
   constructor() {
