@@ -34,7 +34,6 @@ onBeforeMount(async () => {
       formFields.value.endereco = data.endereco;
       formFields.value.telefone = data.telefone;
     } catch (error) {
-      console.log(error);
       /* nothing */
     }
   }

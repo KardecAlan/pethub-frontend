@@ -31,7 +31,7 @@ const routes = [
     path: '/tutelado',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/tutelado/TuteladoList.vue') },
+      { path: '', component: () => import('src/pages/tutelado/TuteladoPage.vue') },
     ],
   },
 
