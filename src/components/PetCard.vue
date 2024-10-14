@@ -1,28 +1,34 @@
-<script>
-export default {
-  props: {
-    pet: Object,
-  },
-};
+<script setup>
+import { defineProps } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const props = defineProps({ pet: Object });
+
+function goMedicalHistory() {
+  router.push(`/pet/historico-clinico/${props.pet.id}`);
+}
 
 </script>
 
 <template>
   <q-card class="q-py-lg q-px-md">
     <p class="text-grey q-ma-none">
-      {{ pet.especie }} |
-      {{ pet.sexo == 'M' ? 'Macho' : 'Fêmea' }} |
-      {{ pet.idade }} Meses
+      {{ props.pet.especie }} |
+      {{ props.pet.sexo == 'M' ? 'Macho' : 'Fêmea' }} |
+      {{ props.pet.idade }} Meses
     </p>
     <p class="text-h5 q-ma-none">
-      {{ pet.nome }}
+      {{ props.pet.nome }}
     </p>
     <p class="q-ma-none">
       Tutor:
-      {{ pet.tutor }}
+      {{ props.pet.tutor }}
     </p>
 
-    <q-btn outline class="q-p-none q-mt-lg" color="primary">Ver Histórico Clínico</q-btn>
+    <q-btn @click="goMedicalHistory" outline class="q-p-none q-mt-lg" color="primary">
+      Ver Histórico Clínico
+    </q-btn>
 
   </q-card>
 </template>

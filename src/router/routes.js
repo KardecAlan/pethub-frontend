@@ -7,10 +7,10 @@ const routes = [
     ],
   },
   {
-    path: '/consultas/pet/fichas',
+    path: '/pet/historico-clinico/:id',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/consulta-pet/ConsultaPetPage.vue') },
+      { path: '', component: () => import('pages/historico-clinico/HistoricoPetPage.vue') },
     ],
   },
   {
@@ -35,14 +35,14 @@ const routes = [
     ],
   },
   {
-    path: '/pet',
+    path: '/pets',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('src/pages/pet/PetPage.vue') },
     ],
   },
   {
-    path: '/pet/novo',
+    path: '/pets/novo',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('src/pages/pet/PetForm.vue') },
