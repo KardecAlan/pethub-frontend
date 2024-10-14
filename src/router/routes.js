@@ -3,14 +3,14 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/searchs/SearchPage.vue') },
+      { path: '', component: () => import('pages/consulta-pet/ConsultaPetPage.vue') },
     ],
   },
   {
-    path: '/consulta-pet/:id',
+    path: '/consultas/pet/fichas',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/searchs/SearchPage.vue') },
+      { path: '', component: () => import('pages/consulta-pet/ConsultaPetPage.vue') },
     ],
   },
   {
