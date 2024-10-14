@@ -62,6 +62,15 @@ class PetsData {
 
     return false;
   }
+
+  async searchPet(petName) {
+    return this.pets.filter((pet) => {
+      const isEqualName = pet.nome.toLowerCase()
+        .indexOf(petName.toLowerCase()) !== -1;
+
+      return isEqualName;
+    });
+  }
 }
 
 export default new PetsData();
