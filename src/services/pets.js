@@ -1,8 +1,10 @@
-import mockedData from '../mocks/pets.json';
+import { pets } from '../mocks/pets.json';
+import { histories } from '../mocks/histories.json';
 
 class PetsData {
   constructor() {
-    this.pets = mockedData.pets;
+    this.pets = pets;
+    this.histories = histories;
   }
 
   async getPets() {
@@ -71,6 +73,13 @@ class PetsData {
       return isEqualName;
     });
   }
+
+  async getMedicalHistory(petId) {
+    return this.histories.filter((history) => {
+      return history.petId.toString() === petId.toString();
+    });
+  }
+
 }
 
 export default new PetsData();

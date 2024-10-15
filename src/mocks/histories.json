@@ -1,0 +1,52 @@
+{
+  "histories" : [
+    {
+      "petId": 1,
+      "alergia" : "Paciente tem alergia a dipirona e amoxicila injetaveis",
+      "cirurgia" : "Não se aplica",
+      "exames" : "Fezes, urina e sangue",
+      "medicamento" : "V8",
+      "suplementacao" : "Não se aplica"
+    },
+    {
+      "petId": 1,
+      "alergia" : "Paciente tem alergia a dipirona e amoxicila injetaveis",
+      "cirurgia" : "Não se aplica",
+      "exames" : "Fezes, urina e sangue",
+      "medicamento" : "V8",
+      "suplementacao" : "Não se aplica"
+    },
+    {
+      "petId": 2,
+      "alergia" : "Paciente tem alergia a dipirona e amoxicila injetaveis",
+      "cirurgia" : "Não se aplica",
+      "exames" : "Fezes, urina e sangue",
+      "medicamento" : "V8",
+      "suplementacao" : "Não se aplica"
+    },
+    {
+      "petId": 3,
+      "alergia" : "Paciente tem alergia a dipirona e amoxicila injetaveis",
+      "cirurgia" : "Não se aplica",
+      "exames" : "Fezes, urina e sangue",
+      "medicamento" : "V8",
+      "suplementacao" : "Não se aplica"
+    },
+    {
+      "petId": 4,
+      "alergia" : "Paciente tem alergia a dipirona e amoxicila injetaveis",
+      "cirurgia" : "Não se aplica",
+      "exames" : "Fezes, urina e sangue",
+      "medicamento" : "V8",
+      "suplementacao" : "Não se aplica"
+    },
+    {
+      "petId": 5,
+      "alergia" : "Paciente tem alergia a dipirona e amoxicila injetaveis",
+      "cirurgia" : "Não se aplica",
+      "exames" : "Fezes, urina e sangue",
+      "medicamento" : "V8",
+      "suplementacao" : "Não se aplica"
+    }
+  ]
+}

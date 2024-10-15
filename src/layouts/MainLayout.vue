@@ -41,12 +41,12 @@ const linksList = [
   {
     title: 'Gerenciar Tutores',
     icon: 'settings',
-    link: '/tutor',
+    link: '/tutores',
   },
   {
     title: 'Gerenciar pets',
     icon: 'settings',
-    link: '/pet',
+    link: '/pets',
   },
   {
     title: 'Encerrar Sessão',

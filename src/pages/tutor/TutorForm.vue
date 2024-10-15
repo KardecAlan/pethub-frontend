@@ -92,7 +92,7 @@ const onSubmit = () => {
       <div class="q-mt-xl q-ml-auto row">
         <q-btn class="q-mr-sm col-2 q-py-sm" type="submit" label="Salvar" color="primary" />
         <q-btn class="q-mr-sm col-2 q-py-sm" color="primary" outline label="Cancelar"
-          @click="() => router.push('/tutor')" />
+          @click="() => router.back()" />
       </div>
     </q-form>
 
