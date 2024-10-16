@@ -25,8 +25,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onBeforeMount } from 'vue';
+import { useRouter } from 'vue-router';
 import EssentialLink from 'components/EssentialLink.vue';
+import { authServices } from 'src/services/auth';
 
 defineOptions({
   name: 'MainLayout',
@@ -56,8 +58,17 @@ const linksList = [
 ];
 
 const leftDrawerOpen = ref(false);
+const router = useRouter();
 
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value;
 }
+
+onBeforeMount(async () => {
+  const isAuthenticaded = await authServices.hasToken();
+
+  if (!isAuthenticaded) {
+    router.push('/login');
+  }
+});
 </script>
