@@ -7,20 +7,20 @@ import { showNegativeToast } from 'src/utils/ToastMessage';
 const router = useRouter();
 const credentials = ref({
   username: '',
-  password: ''
-}); 
+  password: '',
+});
 
 function login(evt) {
-  const {password, username} = credentials.value;
+  const { password, username } = credentials.value;
   evt.preventDefault();
-  
+
   authServices.login(username, password)
-  .then(() => {
-    router.push('/');
-  })
-  .catch((err)=> {
-    showNegativeToast(err.message);
-  });
+    .then(() => {
+      router.push('/');
+    })
+    .catch((err) => {
+      showNegativeToast(err.message);
+    });
 }
 </script>
 
@@ -45,7 +45,7 @@ function login(evt) {
           placeholder="Senha"
         />
 
-        <q-btn 
+        <q-btn
           id="btn-login"
           type="submit"
           class="q-px-lg text-light q-py-sm"

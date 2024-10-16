@@ -3,21 +3,18 @@ import { onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import PetServices from 'src/services/pets';
 
-
 const route = useRoute();
 const router = useRouter();
 const petId = route.params.id;
 const pet = ref({});
 const histories = ref({});
 
-onBeforeMount(async ()=> {
+onBeforeMount(async () => {
   try {
     pet.value = await PetServices.getById(petId);
     histories.value = await PetServices.getMedicalHistory(petId);
-    console.log(histories.value);
-    
   } catch (error) {
-    console.log('deu ruim pai');
+    console.log(error);
   }
 });
 
@@ -54,7 +51,6 @@ onBeforeMount(async ()=> {
 
     <article>
       <h2 class="text-h4">Histórico Clínico</h2>
-      
       <div>
         <q-card class="q-pa-md  q-mb-md" v-for="history in histories" :key="history.petId">
           <h3 class="text-h5">Ficha de Atendimento - 05/01/24</h3>

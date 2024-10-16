@@ -75,11 +75,8 @@ class PetsData {
   }
 
   async getMedicalHistory(petId) {
-    return this.histories.filter((history) => {
-      return history.petId.toString() === petId.toString();
-    });
+    return this.histories.filter((history) => history.petId.toString() === petId.toString());
   }
-
 }
 
 export default new PetsData();
