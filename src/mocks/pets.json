@@ -1,0 +1,58 @@
+{
+  "pets": [
+    {
+      "id" : 0,
+      "especie": "Cachorro",
+      "nome": "Calabreso",
+      "sexo": "M",
+      "idade": 18,
+      "peso": "2.5",
+      "tutor": "Juliano chagas"
+    },
+    {
+      "id" : 1,
+      "especie": "Cachorro",
+      "nome": "Enzo",
+      "sexo": "M",
+      "idade": 18,
+      "peso": "2.5",
+      "tutor": "Juliano chagas"
+    },
+    {
+      "id" : 2,
+      "especie": "Gato",
+      "nome": "Tigre",
+      "sexo": "M",
+      "idade": 18,
+      "peso": "2.5",
+      "tutor": "Juliano chagas"
+    },
+    {
+      "id" : 3,
+      "especie": "Gato",
+      "nome": "Melissa",
+      "sexo": "F",
+      "idade": 6,
+      "peso": "2.5",
+      "tutor": "Juliano chagas"
+    },
+    {
+      "id" : 4,
+      "especie": "Cachorro",
+      "nome": "Thor",
+      "sexo": "M",
+      "idade": 30,
+      "peso": "2.5",
+      "tutor": "Juliano chagas"
+    },
+    {
+      "id" : 5,
+      "especie": "Cachorro",
+      "nome": "Black",
+      "sexo": "M",
+      "idade": 45,
+      "peso": "3.5",
+      "tutor": "Juliano chagas"
+    }
+  ]
+}

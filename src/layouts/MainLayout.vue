@@ -25,8 +25,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onBeforeMount } from 'vue';
+import { useRouter } from 'vue-router';
 import EssentialLink from 'components/EssentialLink.vue';
+import { authServices } from 'src/services/auth';
 
 defineOptions({
   name: 'MainLayout',
@@ -34,40 +36,39 @@ defineOptions({
 
 const linksList = [
   {
-    title: 'Medico',
-    icon: 'school',
-    link: 'https://quasar.dev',
+    title: 'Consultar Pets',
+    icon: 'search',
+    link: '/',
   },
   {
-    title: 'Tutor',
-    icon: 'school',
-    link: '/tutor',
+    title: 'Gerenciar Tutores',
+    icon: 'settings',
+    link: '/tutores',
   },
   {
-    title: 'Tutelado',
-    icon: 'school',
-    link: '/tutelado',
+    title: 'Gerenciar pets',
+    icon: 'settings',
+    link: '/pets',
   },
   {
-    title: 'Endereco',
-    icon: 'school',
-    link: '/endereco',
-  },
-  {
-    title: 'Ficha Medica',
-    icon: 'school',
-    link: '/fichamedica',
-  },
-  {
-    title: 'Historico Clinico',
-    icon: 'school',
-    link: '/historicosclinico',
+    title: 'Encerrar Sessão',
+    icon: 'logout',
+    link: '/logout',
   },
 ];
 
 const leftDrawerOpen = ref(false);
+const router = useRouter();
 
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value;
 }
+
+onBeforeMount(async () => {
+  const isAuthenticaded = await authServices.hasToken();
+
+  if (!isAuthenticaded) {
+    router.push('/login');
+  }
+});
 </script>

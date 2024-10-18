@@ -1,13 +1,24 @@
 const routes = [
   {
+    path: '/login',
+    component: () => import('pages/login/LoginPage.vue'),
+  },
+  {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/IndexPage.vue') },
+      { path: '', component: () => import('pages/consulta-pet/ConsultaPetPage.vue') },
     ],
   },
   {
-    path: '/tutor',
+    path: '/pet/historico-clinico/:id',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/historico-clinico/HistoricoPetPage.vue') },
+    ],
+  },
+  {
+    path: '/tutores',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('src/pages/tutor/TutorPage.vue') },
@@ -28,10 +39,24 @@ const routes = [
     ],
   },
   {
-    path: '/tutelado',
+    path: '/pets',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/tutelado/TuteladoList.vue') },
+      { path: '', component: () => import('src/pages/pet/PetPage.vue') },
+    ],
+  },
+  {
+    path: '/pets/novo',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('src/pages/pet/PetForm.vue') },
+    ],
+  },
+  {
+    path: '/pet/editar/:id',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('src/pages/pet/PetForm.vue') },
     ],
   },
 
