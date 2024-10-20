@@ -3,7 +3,7 @@
 import { onBeforeMount, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import TableView from 'src/components/TableView.vue';
+import TableListView from 'src/components/TableListView.vue';
 import PetsServices from '../../services/pets';
 
 const router = useRouter();
@@ -35,7 +35,7 @@ onBeforeMount(async () => {
     </div>
 
     <!-- Tabela com informacoes de petes -->
-    <TableView
+    <TableListView
       :data="petsData"
       :labels="petColumns"
       :onEditItem="(petId) => router.push(`/pet/editar/${petId}`)"
