@@ -14,7 +14,7 @@ onBeforeMount(async () => {
     pet.value = await PetServices.getById(petId);
     histories.value = await PetServices.getMedicalHistory(petId);
   } catch (error) {
-    console.log(error);
+    // sem necessidade de tratamento
   }
 });
 
