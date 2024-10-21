@@ -43,7 +43,7 @@ const createPet = async () => {
   try {
     await petsServices.createPet(formFields.value);
     showPositiveToast('pet cadastrado com sucesso!');
-    router.push('/pet');
+    router.push('/pets');
   } catch (error) {
     showNegativeToast('pet informado já está cadastrado!');
   }
@@ -53,7 +53,7 @@ const savePet = async () => {
   try {
     await petsServices.savePet(petId, formFields.value);
     showPositiveToast('Dados salvos com sucesso!');
-    router.push('/pet');
+    router.push('/pets');
   } catch (error) {
     showNegativeToast('Não é possivel salvar os dados no momento!');
   }
