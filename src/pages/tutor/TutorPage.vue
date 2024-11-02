@@ -30,7 +30,7 @@ onBeforeMount(async () => {
         color="primary"
         icon="add"
         label="Cadastrar Novo"
-        @click="() => router.push('/tutor/novo')"
+        to="/tutores/novo"
       />
     </div>
 
