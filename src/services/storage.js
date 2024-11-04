@@ -2,7 +2,7 @@ function save(key, value) {
   try {
     localStorage.setItem(key, value);
   } catch (error) {
-    console.log('Unable to save in local storage');
+    // sem necessidade de tratamento
   }
 }
 

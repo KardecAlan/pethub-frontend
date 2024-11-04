@@ -1,13 +1,6 @@
 <template>
-  <q-item
-    clickable
-    tag="a"
-    :href="props.link"
-  >
-    <q-item-section
-      v-if="props.icon"
-      avatar
-    >
+  <q-item clickable tag="a" @click="() => handleClick()">
+    <q-item-section v-if="props.icon" avatar>
       <q-icon :name="props.icon" />
     </q-item-section>
 
@@ -19,6 +12,8 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
+
 defineOptions({
   name: 'EssentialLink',
 });
@@ -43,5 +38,17 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  onClick: {
+    type: Function,
+    default: () => {},
+  },
 });
+
+const router = useRouter();
+
+function handleClick() {
+  props.onClick();
+  router.push(props.link);
+}
+
 </script>

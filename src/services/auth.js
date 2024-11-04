@@ -5,7 +5,7 @@ async function login(username, password) {
     throw new Error('Preencha os campos corretamente');
   }
 
-  if (username !== 'waldeci' || password !== '1234') {
+  if (username !== 'labes' || password !== '1234') {
     throw new Error('Usuário ou senha inválidos');
   }
 

@@ -14,7 +14,7 @@ onBeforeMount(async () => {
     pet.value = await PetServices.getById(petId);
     histories.value = await PetServices.getMedicalHistory(petId);
   } catch (error) {
-    console.log(error);
+    // sem necessidade de tratamento
   }
 });
 
@@ -51,7 +51,7 @@ onBeforeMount(async () => {
 
     <article>
       <h2 class="text-h4">Histórico Clínico</h2>
-      <div>
+      <div v-if="histories.length > 0">
         <q-card class="q-pa-md  q-mb-md" v-for="history in histories" :key="history.petId">
           <h3 class="text-h5">Ficha de Atendimento - 05/01/24</h3>
           <p><strong>Alergias:</strong> {{ history.alergia }}</p>
@@ -61,6 +61,7 @@ onBeforeMount(async () => {
           <p><strong>Suplementação:</strong> {{ history.suplementacao }}</p>
         </q-card>
       </div>
+      <p v-else>{{ pet.nome }} ainda não possui registros clínicos</p>
     </article>
 
 </section>

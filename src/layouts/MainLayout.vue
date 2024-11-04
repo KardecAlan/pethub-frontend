@@ -53,7 +53,10 @@ const linksList = [
   {
     title: 'Encerrar Sessão',
     icon: 'logout',
-    link: '/logout',
+    link: '/login',
+    onClick: async () => {
+      await authServices.logout();
+    },
   },
 ];
 

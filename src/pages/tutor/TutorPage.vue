@@ -3,7 +3,7 @@
 import { onBeforeMount, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import TableView from 'src/components/TableView.vue';
+import TableListView from 'src/components/TableListView.vue';
 import TutorsServices from '../../services/tutors';
 
 const router = useRouter();
@@ -30,12 +30,12 @@ onBeforeMount(async () => {
         color="primary"
         icon="add"
         label="Cadastrar Novo"
-        @click="() => router.push('/tutor/novo')"
+        to="/tutores/novo"
       />
     </div>
 
     <!-- Tabela com informacoes de tutores -->
-    <TableView
+    <TableListView
       :data="tutorsData"
       :labels="tutorColumns"
       :onEditItem="(tutorId) => router.push(`/tutor/editar/${tutorId}`)"

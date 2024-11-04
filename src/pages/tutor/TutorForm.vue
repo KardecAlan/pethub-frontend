@@ -43,7 +43,7 @@ const createTutor = async () => {
   try {
     await TutorsServices.createTutor(formFields.value);
     showPositiveToast('Tutor cadastrado com sucesso!');
-    router.push('/tutor');
+    router.push('/tutores');
   } catch (error) {
     showNegativeToast('Tutor informado já está cadastrado!');
   }
@@ -53,7 +53,7 @@ const saveTutor = async () => {
   try {
     await TutorsServices.saveTutor(tutorId, formFields.value);
     showPositiveToast('Dados salvos com sucesso!');
-    router.push('/tutor');
+    router.push('/tutores');
   } catch (error) {
     showNegativeToast('Não é possivel salvar os dados no momento!');
   }

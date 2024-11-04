@@ -25,7 +25,7 @@ const routes = [
     ],
   },
   {
-    path: '/tutor/novo',
+    path: '/tutores/novo',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/tutor/TutorForm.vue') },

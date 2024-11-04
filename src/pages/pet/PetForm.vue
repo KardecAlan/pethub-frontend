@@ -13,6 +13,7 @@ const formFields = ref(
     sexo: '',
     idade: '1',
     peso: '',
+    tutor: '',
   },
 );
 
@@ -33,6 +34,7 @@ onBeforeMount(async () => {
       formFields.value.sexo = data.sexo;
       formFields.value.idade = data.idade;
       formFields.value.peso = data.peso;
+      formFields.value.tutor = data.tutor;
     } catch (error) {
       /* nothing */
     }
@@ -43,7 +45,7 @@ const createPet = async () => {
   try {
     await petsServices.createPet(formFields.value);
     showPositiveToast('pet cadastrado com sucesso!');
-    router.push('/pet');
+    router.push('/pets');
   } catch (error) {
     showNegativeToast('pet informado já está cadastrado!');
   }
@@ -53,7 +55,7 @@ const savePet = async () => {
   try {
     await petsServices.savePet(petId, formFields.value);
     showPositiveToast('Dados salvos com sucesso!');
-    router.push('/pet');
+    router.push('/pets');
   } catch (error) {
     showNegativeToast('Não é possivel salvar os dados no momento!');
   }
@@ -74,6 +76,9 @@ const onSubmit = () => {
     <p class="text-h4 q-mb-lg">{{ isEditMode ? 'Editar Dados de ' : 'Cadastrar' }} pet</p>
 
     <q-form @submit="onSubmit">
+      <div class="q-mt-sm q-pr-xl q-mr-xl">
+        <q-input label="Nome do Tutor" v-model="formFields.tutor" outlined/>
+      </div>
       <div class="row q-gutter-x-sm q-mt-sm q-pr-xl q-mr-xl">
         <!-- Nome -->
         <q-input required v-model="formFields.nome" label="Nome" class="col" outlined />
